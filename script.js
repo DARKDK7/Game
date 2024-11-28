@@ -53,3 +53,4 @@ applyCodeBtn.addEventListener('click', () => {
         codeMessage.textContent = 'Invalid code. Please try again.';
         codeMessage.style.color = 'red';
     }
+});
