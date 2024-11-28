@@ -1,34 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Runner</title>
+    <title>ألغاز الزمن</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Main Menu -->
-    <div id="main-menu">
-        <h1>Dark Runner</h1>
-        <div class="button-container">
-            <button id="start-game">🎮 Start Game</button>
-            <button id="store-btn">🛒 Store</button>
-            <button id="settings-btn">⚙️ Settings</button>
-        </div>
+    <div class="game-container">
+        <div class="question"></div>
+        <button class="answer">الإجابة 1</button>
+        <button class="answer">الإجابة 2</button>
+        <button class="answer">الإجابة 3</button>
+        <button class="answer">الإجابة 4</button>
     </div>
 
-    <!-- Store Section -->
-    <div id="store" class="hidden">
-        <h2>Store</h2>
-        <button class="back-btn">Back to Main Menu</button>
-    </div>
-
-    <!-- Settings Section -->
-    <div id="settings" class="hidden">
-        <h2>Settings</h2>
-        <button class="back-btn">Back to Main Menu</button>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
