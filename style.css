@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    background: #1e3c72;
     color: white;
     text-align: center;
 }
@@ -18,13 +18,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    text-align: center;
 }
 
 #main-menu h1 {
     font-size: 3em;
     margin-bottom: 30px;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
 }
 
 .button-container button {
@@ -36,130 +34,26 @@ body {
     background-color: #ff7f50;
     color: white;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 0.3s ease;
 }
 
 .button-container button:hover {
     background-color: #ff6347;
-    transform: scale(1.1);
 }
 
 /* Store Section */
-#store {
+#store, #settings {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to bottom, #4a90e2, #145DA0);
-    padding: 20px;
+    background: #4a90e2;
 }
 
-h2 {
+#store h2, #settings h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-}
-
-.store-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.store-item {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    width: 200px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.store-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
-}
-
-.store-item img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.store-item p {
-    font-size: 1.2em;
-    margin: 10px 0;
-}
-
-.buy-btn {
-    background-color: #ff7f50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.buy-btn:hover {
-    background-color: #ff6347;
-}
-
-/* Code Input Section */
-#code-section {
-    margin: 20px 0;
-}
-
-#code-input {
-    padding: 10px;
-    font-size: 1.1em;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-right: 10px;
-}
-
-#apply-code-btn {
-    padding: 10px 20px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 8px;
-    background-color: #ff7f50;
-    color: white;
-    cursor: pointer;
-}
-
-#apply-code-btn:hover {
-    background-color: #ff6347;
-}
-
-/* Message after applying code */
-#code-message {
-    font-size: 1.1em;
-    color: green;
-    margin-top: 10px;
-}
-
-/* Settings Section */
-#settings {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to bottom, #1e3c72, #2a5298);
-    padding: 20px;
-}
-
-label {
-    font-size: 1.5em;
-    margin: 20px 0;
-}
-
-input[type="range"] {
-    width: 80%;
-    margin: 10px 0;
 }
 
 .back-btn {
@@ -176,5 +70,4 @@ input[type="range"] {
 
 .back-btn:hover {
     background-color: #ff6347;
-    transform: scale(1.1);
 }
