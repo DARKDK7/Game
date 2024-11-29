@@ -3,50 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة المستويات المطورة</title>
-    <link rel="stylesheet" href="style.css">
+    <title>لعبة الأسئلة</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            background: linear-gradient(135deg, #f06, #48c6ef);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header {
+            font-size: 40px;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .button {
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 25px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        #questions-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .answer {
+            padding: 15px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 18px;
+        }
+
+        .answer:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #fff;
+            display: none;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        #end-game {
+            display: none;
+            color: #fff;
+            font-size: 22px;
+        }
+
+        #end-game button {
+            margin-top: 20px;
+            background-color: #f06;
+            color: #fff;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #end-game button:hover {
+            background-color: #ff5733;
+        }
+
+        .settings {
+            margin-top: 40px;
+            font-size: 18px;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <!-- الشاشة الرئيسية -->
-    <div id="main-screen">
-        <h1>لعبة المستويات</h1>
-        <p>XP الحالي: <span id="player-xp">0</span></p>
-        <button id="start-game">ابدأ اللعبة</button>
-        <button id="choose-levels">اختيار المستوى</button>
-        <button id="instructions">التعليمات</button>
-        <button id="settings">الإعدادات</button>
-    </div>
 
-    <!-- شاشة التعليمات -->
-    <div id="instructions-screen" class="hidden">
-        <h2>تعليمات اللعبة</h2>
-        <p>أجب على الأسئلة لتحصل على XP وتفتح مستويات جديدة. استمتع!</p>
-        <button id="back-to-main">رجوع</button>
-    </div>
+<header>
+    <h1>لعبة الأسئلة</h1>
+</header>
 
-    <!-- شاشة اختيار المستويات -->
-    <div id="level-screen" class="hidden">
-        <h2>اختر المستوى</h2>
-        <div id="level-container"></div>
-        <button id="back-to-main">رجوع</button>
-    </div>
+<div class="container">
+    <button class="button" id="start-btn">ابدأ اللعبة</button>
+</div>
 
-    <!-- شاشة اللعبة -->
-    <div id="game-screen" class="hidden">
-        <h2 id="level-title">المستوى 1</h2>
-        <p id="question-text"></p>
-        <div id="answers-container"></div>
-        <div id="timer-circle">15s</div>
-    </div>
+<div id="questions-container">
+    <div id="question" class="question"></div>
+    <div id="answers-container"></div>
+    <div id="feedback"></div>
+</div>
 
-    <!-- شاشة النتائج -->
-    <div id="result-screen" class="hidden">
-        <h2>نتائجك</h2>
-        <p>إجابات صحيحة: <span id="correct-answers">0</span></p>
-        <p>إجابات خاطئة: <span id="wrong-answers">0</span></p>
-        <button id="back-to-levels">عودة للمستويات</button>
-    </div>
+<div id="end-game">
+    <div>لقد أجبت بشكل صحيح على <span id="correct-answers"></span> من الأسئلة!</div>
+    <button id="restart-btn">إعادة اللعب</button>
+</div>
 
-    <script src="game.js"></script>
-</body>
-</html>
+<div class="settings">
+    <button class="button" id="settings-btn">الإعدادات</button>
+</div>
+
+<script>
+    const questionsData = {
+        "levels": [
+            {
+                "category": "الثقافة العامة",
+                "questions": [
+                    { "question": "ما هو أطول نهر في العالم؟", "answers": ["النيل", "الأمازون", "الدانوب", "الفرات"], "correct": 0 },
+                    { "question": "ما هو أعلى جبل في العالم؟", "answers": ["إيفرست", "كي 2", "ماكينلي", "مونت بلانك"], "correct": 0 },
+                    { "question": "من هو مؤلف رواية 1984؟", "answers": ["جورج أورويل", "فيكتور هوغو", "جاك لندن", "إرنست همنغواي"], "correct": 0 },
+                    { "question": "ما هو أكبر كوكب في النظام الشمسي؟", "answers": ["المشتري", "زحل", "أورانوس", "نبتون"], "correct": 0 },
+                    { "question": "من هو مخترع الكهرباء؟", "answers": ["توماس إديسون", "نيكولا تسلا", "ألكسندر غراهام بيل", "أوغستين دي مورغان"], "correct": 0 }
+                ]
+            },
+            {
+                "category": "الرياضة",
+                "questions": [
+                    { "question": "من فاز بكأس العالم 2018؟", "answers": ["فرنسا", "الأرجنتين", "ألمانيا", "البرازيل"], "correct": 0 },
+                    { "question": "أين أقيمت أول دورة للألعاب الأولمبية؟", "answers": ["أثينا", "باريس", "لندن", "نيويورك"], "correct": 0 },
+                    { "question": "ما هو أكبر ملعب في العالم؟", "answers": ["ملعب رونغرادو", "استاد ماراكانا", "البرنابيو", "ملعب ويمبلي"], "correct": 0 },
+                    { "question": "كم عدد اللاعبين في كرة القدم؟", "answers": ["11", "10", "9", "12"], "correct": 0 },
+                    { "question": "من هو أسطورة كرة القدم البرازيلية؟", "answers": ["بيليه", "رونالدو", "مارادونا", "ميسي"], "correct": 0 }
+                ]
+            },
+            {
+                "category": "التاريخ",
+                "questions": [
+                    { "question": "من هو قائد الجيش في معركة حطين؟", "answers": ["صلاح الدين الأيوبي", "المماليك", "يوسف بن تاشفين", "خالد بن الوليد"], "correct": 0 },
+                    { "question": "في أي سنة تم اكتشاف أمريكا؟", "answers": ["1492", "1494", "1500", "1600"], "correct": 0 },
+                    { "question": "من هو ملك مصر في عهد الفراعنة؟", "answers": ["فرعون", "إسكندر الأكبر", "الملك توت", "أحمس"], "correct": 0 },
+                    { "question": "متى تم بناء الأهرامات؟", "answers": ["3000 قبل الميلاد", "2000 قبل الميلاد", "4000 قبل الميلاد", "5000 قبل الميلاد"], "correct": 0 },
+                    { "question": "ما هو تاريخ ثورة 25 يناير في مصر؟", "answers": ["2011", "2000", "1995", "2010"], "correct": 0 }
+                ]
+            }
+        ]
+    };
+
+    let currentLevel = 0;
+    let currentQuestionIndex = 0;
+    let correctAnswers = 0;
+
+    // مؤثرات صوتية
+    const correctSound = new Audio("correct-answer.mp3");
+    const incorrectSound = new Audio("incorrect-answer.mp3");
+
+    // بدء اللعبة
+    document.getElementById('start-btn').addEventListener('click', startGame);
+
+    function startGame() {
+        document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('questions-container').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const currentLevelData = questionsData.levels[currentLevel];
+        const questionData = currentLevelData.questions[currentQuestionIndex];
+
+        document.getElementById('question').textContent = questionData.question;
+        const answersContainer = document.getElementById('answers-container');
+        answersContainer.innerHTML = '';
+        questionData.answers.forEach((answer, index) => {
+            const answerButton = document.createElement('div');
+            answerButton.classList.add('answer');
+            answerButton.textContent = answer;
+            answerButton.addEventListener('click', () => checkAnswer(index));
+            answersContainer.appendChild(answerButton);
+        });
+    }
+
+    function checkAnswer(selectedIndex) {
+        const currentLevelData = questionsData.levels[current
