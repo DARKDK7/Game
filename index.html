@@ -3,16 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ألغاز الزمن</title>
+    <title>لعبة المستويات المطورة</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="question"></div>
-        <button class="answer">الإجابة 1</button>
-        <button class="answer">الإجابة 2</button>
-        <button class="answer">الإجابة 3</button>
-        <button class="answer">الإجابة 4</button>
+    <!-- الشاشة الرئيسية -->
+    <div id="main-screen">
+        <h1>لعبة المستويات</h1>
+        <p>XP الحالي: <span id="player-xp">0</span></p>
+        <button id="start-game">ابدأ اللعبة</button>
+        <button id="choose-levels">اختيار المستوى</button>
+        <button id="instructions">التعليمات</button>
+        <button id="settings">الإعدادات</button>
+    </div>
+
+    <!-- شاشة التعليمات -->
+    <div id="instructions-screen" class="hidden">
+        <h2>تعليمات اللعبة</h2>
+        <p>أجب على الأسئلة لتحصل على XP وتفتح مستويات جديدة. استمتع!</p>
+        <button id="back-to-main">رجوع</button>
+    </div>
+
+    <!-- شاشة اختيار المستويات -->
+    <div id="level-screen" class="hidden">
+        <h2>اختر المستوى</h2>
+        <div id="level-container"></div>
+        <button id="back-to-main">رجوع</button>
+    </div>
+
+    <!-- شاشة اللعبة -->
+    <div id="game-screen" class="hidden">
+        <h2 id="level-title">المستوى 1</h2>
+        <p id="question-text"></p>
+        <div id="answers-container"></div>
+        <div id="timer-circle">15s</div>
+    </div>
+
+    <!-- شاشة النتائج -->
+    <div id="result-screen" class="hidden">
+        <h2>نتائجك</h2>
+        <p>إجابات صحيحة: <span id="correct-answers">0</span></p>
+        <p>إجابات خاطئة: <span id="wrong-answers">0</span></p>
+        <button id="back-to-levels">عودة للمستويات</button>
     </div>
 
     <script src="game.js"></script>
