@@ -1,44 +1,39 @@
-// game.js
-const questions = [
-    {
-        question: "ما هو اختراع الهاتف؟",
-        answers: ["ألكسندر جراهام بيل", "توماس إديسون", "ماري كوري", "إسحاق نيوتن"],
-        correct: 0
-    },
-    {
-        question: "في أي سنة تم إرسال الإنسان الأول إلى الفضاء؟",
-        answers: ["1961", "1975", "1980", "1955"],
-        correct: 0
-    }
-];
+let playerXP = 0;
+let currentLevel = 0;
+const totalLevels = 50;
+let timeLeft = 15;
+let timer;
 
-let currentQuestion = 0;
+const questions = {}; // سيتم تحميل الأسئلة من ملف JSON
 
-const questionElement = document.querySelector('.question');
-const answerButtons = document.querySelectorAll('.answer');
-
-function loadQuestion() {
-    const current = questions[currentQuestion];
-    questionElement.textContent = current.question;
-    answerButtons.forEach((button, index) => {
-        button.textContent = current.answers[index];
-        button.onclick = () => checkAnswer(index);
-    });
+function loadQuestions() {
+    fetch('questions.json')
+        .then((response) => response.json())
+        .then((data) => {
+            questions.levels = data.levels;
+        });
 }
 
-function checkAnswer(selected) {
-    const current = questions[currentQuestion];
-    if (selected === current.correct) {
-        alert("إجابة صحيحة!");
-    } else {
-        alert("إجابة خاطئة!");
-    }
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-    } else {
-        alert("لقد أكملت اللعبة!");
-    }
+function playSound(type) {
+    const audio = new Audio(`assets/${type}.mp3`);
+    audio.play();
 }
 
-loadQuestion();
+function saveProgress() {
+    localStorage.setItem("playerXP", playerXP);
+    localStorage.setItem("currentLevel", currentLevel);
+}
+
+function loadProgress() {
+    const savedXP = localStorage.getItem("playerXP");
+    const savedLevel = localStorage.getItem("currentLevel");
+    if (savedXP) playerXP = parseInt(savedXP, 10);
+    if (savedLevel) currentLevel = parseInt(savedLevel, 10);
+}
+
+// شاشات التفاعل
+document.getElementById("start-game").addEventListener("click", () => {
+    document.getElementById("main-screen").classList.add("hidden");
+    document.getElementById("game-screen").classList.remove("hidden");
+    startGame();
+});
